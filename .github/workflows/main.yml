@@ -18,6 +18,17 @@ jobs:
         run: |
           #  npm install 
           npm test
+  lint:
+    name: Static Code analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v5
+      - name: Setup nodejs
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'npm'
   build:
     name: Build artifacts
     runs-on: ubuntu-latest
