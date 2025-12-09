@@ -2,13 +2,16 @@ name: New CICD
 on:
   push:
 jobs:
-  Test:
+  test:
+    name: Unit Testing
     runs-on: ubuntu-latest
     steps:
-      - run: echo "hello"
+      # - run: echo "hello"
       - name: Checkout code
         uses: actions/checkout@v5
       - name: List files
         run: |
           ls -l ${{ github.workspace }}
-  
+      - name: run tests
+        run: |
+          npm test
