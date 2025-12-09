@@ -29,14 +29,14 @@ jobs:
   lint:
     name: Static Code analysis
     runs-on: ubuntu-latest
-    # steps:
-    #   - *checkout
-    #   # - name: checkout code
-    #   #   uses: actions/checkout@v5
-    #   - *setup_node
-    #   - *install_dependencies
-    #   - name: run lint
-    #     run: npm run lint
+    steps:
+      - *checkout
+      # - name: checkout code
+      #   uses: actions/checkout@v5
+      - *setup_node
+      - *install_dependencies
+      - name: run lint
+        run: npm run lint
   build:
     name: Build artifacts
     runs-on: ubuntu-latest
