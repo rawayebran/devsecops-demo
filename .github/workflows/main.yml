@@ -12,9 +12,11 @@ jobs:
       # - name: List files
       #   run: |
       #     ls -l ${{ github.workspace }}
+      - name: Install dependencies
+        run: npm ci
       - name: run tests
         run: |
-          npm install 
+          #  npm install 
           npm test
   build:
     name: Build artifacts
