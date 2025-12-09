@@ -29,10 +29,14 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - name: install dependencies
+        run: npm install
+      - name: run lint
+        run: npm run lint
   build:
     name: Build artifacts
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [test,lint]
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
