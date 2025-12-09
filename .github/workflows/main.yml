@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # - run: echo "hello"
-      - name: Checkout code
+      - &checkout
+        name: Checkout code
         uses: actions/checkout@v5
       # - name: List files
       #   run: |
@@ -22,8 +23,9 @@ jobs:
     name: Static Code analysis
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
-        uses: actions/checkout@v5
+      - *checkout
+      # - name: checkout code
+      #   uses: actions/checkout@v5
       - name: Setup nodejs
         uses: actions/setup-node@v6
         with:
@@ -64,5 +66,7 @@ jobs:
         uses: actions/checkout@v5
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v3
+      # - name: Login to gcr
+
 
 
