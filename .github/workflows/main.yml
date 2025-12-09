@@ -60,6 +60,8 @@ jobs:
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
+    outputs:
+      image_tag: ${{ steps.set_output.outputs.image_tag }}
     steps:
       - *checkout
       - name: Setup docker buildx
@@ -70,9 +72,21 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,format=long
+            type=ref,event=branch
+            latest      
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          push: true
-          tags: ${{ env.REGISTRY}}/${{env.IMAGE_NAME}}
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      - name: Scan
+        uses: aquasecurity/trivy-action@0.33.1
 
