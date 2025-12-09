@@ -8,4 +8,7 @@ jobs:
       - run: echo "hello"
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: List files
+        run: |
+          ls -l ${{ github.workspace }}
   
